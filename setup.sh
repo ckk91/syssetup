@@ -3,92 +3,96 @@ set -euo pipefail
 IFS=$'\n\t'
 # to pull: bash -c "$(wget $URL -O -)"
 # ============================================
+# https://medium.com/better-programming/best-practices-for-bash-scripts-17229889774d
+# run with sudo
+function install_apt_packages() {
+    add-apt-repository -y ppa:kritalime/ppa
 
+    apt update && apt upgrade
 
-function create_default_folders() {
-mkdir ~/dev ~/00_my    
-}
-
-function install_apt_packages {   
-sudo apt update && sudo apt upgrade
-
-APT_PACKS=(
-    ag
-    aptitude
-    build-essential
-    curl
-    git
-    htop
-    neovim-qt
-    steam-installer
-    virtualbox
-)
-sudo apt install -y ${APT_PACKS[@]}
-}
-
-function install_snaps {
-    SNAPS=(
-	spotify
-	krita
+    APT_PACKS=(
+        # ag  # todo ripgrep
+        aptitude
+        build-essential
+        nautilus-dropbox
+        curl
+        keepassxc
+        git
+        dolphin-plugins # todo if kde and homebox
+        calibre         # todo if homebox
+        htop
+        flatpak
+        plasma-discover-flatpak-backend
+        krita
+        thunderbird
+        python3-pip
+        filelight # todo if kde
+        neovim-qt
+        steam-installer
+        virtualbox
     )
-    sudo snap install ${SNAPS[@]}
-    sudo snap install --classic blender code emacs
+    apt install -y "${APT_PACKS[@]}"
 }
 
-function install_wine {
-    sudo dpkg --add-architecture i386
-    wget -O - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
-    sudo add-apt-repository 'https://dl.winehq.org/wine-builds/ubuntu/' \
-	&& sudo apt update
-    sudo apt install -y winehq-stable
+function install_snaps() {
+    # krita, blender if home
+    snap install spotify krita
+    snap install --classic blender code
 }
 
-function install_ynab {
-    
+# TODO dolphin plugins setup for dropbox
+function install_wine() { # if home
+    dpkg --add-architecture i386
+    wget -O - https://dl.winehq.org/wine-builds/winehq.key | apt-key add -
+    add-apt-repository 'https://dl.winehq.org/wine-builds/ubuntu/' &&
+        apt update
+    apt install -y winehq-stable
 }
 
-function install_chrome {
-    
+function install_ynab() {
+    :
 }
 
-function install_clojure {
-  sudo apt install -y clojure leiningen    
+function install_chrome() {
+    :
 }
 
-function install_zsh {
-sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-echo 'export PATH="/home/fia/.pyenv/bin:$PATH"' >> ~/.zshrc
-echo 'eval "$(pyenv init -)"' >> ~/.zshrc
-echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc
+function install_clojure() {
+    apt install -y clojure leiningen
 }
 
-function setup_bash {
-    
+function install_zsh() {
+    sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 }
 
-function setup_emacs {
-git clone https://github.com/CKMakesStuff/emacs.d.git ~/.emacs.d
+function setup_bash() {
+    :
+}
+function install_docker() {
+    :
+}
+function hook_nas() {
+    # todo if on home
+    # create folder
+    mkdir -p /media/nas
+    # install cifs
+    apt-get install -y cifs-utils
+    # update fstab
+    # TODO
 }
 
-function setup_python {
-sudo apt install -y python3-pip
-curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
-}
-function update_fstab {
-    
-}
-function main {
-    create_default_folders
+function main() {
+    #todo test if snap
     install_apt_packages
     install_snaps
-    install_wine
-    install_ynab
+    install_wine # if on home
+    install_ynab # if on home
     install_chrome
     # install_clojure
     # install_zsh
     setup_bash
-    setup_emacs
-    setup_python
     # TODO if on home machine
-    update_fstab
+    hook_nas
 }
+# todo check if sourced
+#main
