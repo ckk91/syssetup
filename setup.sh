@@ -14,30 +14,29 @@ function install_apt_packages() {
         # ag  # todo ripgrep
         aptitude
         build-essential
-        nautilus-dropbox
-        curl
-        keepassxc
-        git
-        dolphin-plugins # todo if kde and homebox
         calibre         # todo if homebox
-        htop
-        flatpak
-        plasma-discover-flatpak-backend
-        krita
-        thunderbird
-        python3-pip
+        curl
+        dolphin-plugins # todo if kde and homebox
         filelight # todo if kde
+        flatpak
+        git
+        htop
+        keepassxc
+        krita
+        nautilus-dropbox
         neovim-qt
+        plasma-discover-flatpak-backend
+        python3-pip
         steam-installer
+        thunderbird
         virtualbox
     )
     apt install -y "${APT_PACKS[@]}"
 }
 
 function install_snaps() {
-    # krita, blender if home
-    snap install spotify krita
-    snap install --classic blender code
+    snap install spotify
+    snap install --classic blender code emacs
 }
 
 # TODO dolphin plugins setup for dropbox
@@ -49,28 +48,14 @@ function install_wine() { # if home
     apt install -y winehq-stable
 }
 
-function install_ynab() {
-    :
-}
-
 function install_chrome() {
     :
 }
 
-function install_clojure() {
-    apt install -y clojure leiningen
-}
-
-function install_zsh() {
-    sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-}
-
-function setup_bash() {
-    :
-}
 function install_docker() {
     :
 }
+
 function hook_nas() {
     # todo if on home
     # create folder
@@ -88,8 +73,6 @@ function main() {
     install_wine # if on home
     install_ynab # if on home
     install_chrome
-    # install_clojure
-    # install_zsh
     setup_bash
     # TODO if on home machine
     hook_nas

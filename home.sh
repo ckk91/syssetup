@@ -23,11 +23,23 @@ function setup_vorta() {
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     flatpak install flathub com.borgbase.Vorta
 }
-function setup_python () {
+function setup_python() {
     curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
     echo 'export PATH="/home/fia/.pyenv/bin:$PATH"' >>~/.bashrc
     echo 'eval "$(pyenv init -)"' >>~/.bashrc
     echo 'eval "$(pyenv virtualenv-init -)"' >>~/.bashrc
+}
+
+function setup_bash() {
+    :
+}
+
+function install_ynab() {
+    :
+}
+
+function setup_emacs() {
+    git clone https://github.com/CKMakesStuff/emacs.d.git ~/.emacs.d
 }
 
 function main() {
