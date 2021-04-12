@@ -46,7 +46,7 @@ function install_apt_packages() {
 function install_snaps() {
     # snap install spotify
     # snap install --classic blender code
-    snap install --classic code
+    sudo snap install --classic code
 }
 
 # TODO dolphin plugins setup for dropbox
@@ -66,7 +66,7 @@ function install_docker() {
     # ubuntu only
     sudo apt-get remove docker docker-engine docker.io containerd runc
     sudo apt-get update
-    sudo apt-get install \
+    sudo apt-get install -y \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -77,7 +77,7 @@ function install_docker() {
     "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
     $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
     sudo apt-get update
-    sudo apt-get install docker-ce docker-ce-cli containerd.io
+    sudo apt-get install -y docker-ce docker-ce-cli containerd.io
     sudo docker run hello-world  # test drive
     sudo usermod -aG docker $USER
 }
