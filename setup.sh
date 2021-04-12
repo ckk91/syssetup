@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
+# System setup script/playground
+#
+# TODO: flags?
+
+
 set -euo pipefail
 IFS=$'\n\t'
+
 # to pull: bash -c "$(wget $URL -O -)"
 # ============================================
 # https://medium.com/better-programming/best-practices-for-bash-scripts-17229889774d
@@ -30,13 +36,16 @@ function install_apt_packages() {
         steam-installer
         thunderbird
         virtualbox
+        # fresh and hot
+        ranger  # todo evaluate tool
+        tig  # todo evaluate tool
     )
     apt install -y "${APT_PACKS[@]}"
 }
 
 function install_snaps() {
     snap install spotify
-    snap install --classic blender code emacs
+    snap install --classic blender code
 }
 
 # TODO dolphin plugins setup for dropbox
