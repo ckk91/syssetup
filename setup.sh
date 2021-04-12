@@ -59,7 +59,9 @@ function install_wine() { # if home
 }
 
 function install_chrome() {
-    :
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    sudo apt install ./google-chrome-stable_current_amd64.deb
+    rm ./google-chrome-stable_current_amd64.deb
 }
 
 function install_docker() {
@@ -133,3 +135,4 @@ function main() {
 }
 # todo check if sourced
 #main
+# todo cat vscode_extensions.list | grep -v '^#' | xargs -L1 code --install-extension
