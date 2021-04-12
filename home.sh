@@ -3,7 +3,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 function create_default_folders() {
-    mkdir -p ~/dev ~/00_my
+    mkdir -p ~/00_dev ~/10_my
 }
 
 function setup_git() {
