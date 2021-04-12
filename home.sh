@@ -38,10 +38,6 @@ function install_ynab() {
     :
 }
 
-function setup_emacs() {
-    git clone https://github.com/CKMakesStuff/emacs.d.git ~/.emacs.d
-}
-
 function main() {
     create_default_folders
     setup_git
