@@ -74,17 +74,45 @@ function hook_nas() {
     # update fstab
     # TODO
 }
+function install_zsh {
+    if [ "${SHELL}" != "/usr/bin/zsh" ]; then
+        echo "Setting up zsh"
+        sudo apt-get install -y zsh
+        sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        exit 0
+    fi
+}
+function install_python_venv {
+    if [ ! -d $HOME/.pyenv ]; then
+        echo "Setting up pyenv"
+        curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | zsh
+
+        echo 'export PATH="/home/fia/.pyenv/bin:$PATH"' >> ~/.zshrc
+        echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+        echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc
+        # . $HOME/.zshrc
+    fi
+}
+function install_nvm () {
+    if [ ! -d $HOME/.nvm ]; then
+        echo "Setting up nvm and nodejs lvm latest"
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | zsh
+        . $HOME/.zshrc
+        nvm install --lts
+    fi
+}
 
 function main() {
+    :
     #todo test if snap
-    install_apt_packages
-    install_snaps
-    install_wine # if on home
-    install_ynab # if on home
-    install_chrome
-    setup_bash
+    # install_apt_packages
+    # install_snaps
+    # install_wine # if on home
+    # install_ynab # if on home
+    # install_chrome
+    # setup_bash
     # TODO if on home machine
-    hook_nas
+    # hook_nas
 }
 # todo check if sourced
 #main
