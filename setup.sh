@@ -12,30 +12,30 @@ IFS=$'\n\t'
 # https://medium.com/better-programming/best-practices-for-bash-scripts-17229889774d
 # run with sudo
 function install_apt_packages() {
-    add-apt-repository -y ppa:kritalime/ppa
+    # add-apt-repository -y ppa:kritalime/ppa
 
     apt update && apt upgrade
 
     APT_PACKS=(
         # ag  # todo ripgrep
-        aptitude
+        # aptitude
         build-essential
-        calibre         # todo if homebox
+        # calibre         # todo if homebox
         curl
-        dolphin-plugins # todo if kde and homebox
-        filelight # todo if kde
-        flatpak
+        # dolphin-plugins # todo if kde and homebox
+        # filelight # todo if kde
+        # flatpak
         git
         htop
         keepassxc
-        krita
-        nautilus-dropbox
+        # krita
+        # nautilus-dropbox
         neovim-qt
-        plasma-discover-flatpak-backend
-        python3-pip
-        steam-installer
-        thunderbird
-        virtualbox
+        # plasma-discover-flatpak-backend
+        # python3-pip
+        # steam-installer
+        # thunderbird
+        # virtualbox
         # fresh and hot
         ranger  # todo evaluate tool
         tig  # todo evaluate tool
@@ -44,8 +44,9 @@ function install_apt_packages() {
 }
 
 function install_snaps() {
-    snap install spotify
-    snap install --classic blender code
+    # snap install spotify
+    # snap install --classic blender code
+    snap install --classic code
 }
 
 # TODO dolphin plugins setup for dropbox
@@ -62,7 +63,23 @@ function install_chrome() {
 }
 
 function install_docker() {
-    :
+    # ubuntu only
+    sudo apt-get remove docker docker-engine docker.io containerd runc
+    sudo apt-get update
+    sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    echo \
+    "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    sudo apt-get update
+    sudo apt-get install docker-ce docker-ce-cli containerd.io
+    sudo docker run hello-world  # test drive
+    sudo usermod -aG docker $USER
 }
 
 function hook_nas() {
@@ -103,10 +120,10 @@ function install_nvm () {
 }
 
 function main() {
-    :
+    # :
     #todo test if snap
-    # install_apt_packages
-    # install_snaps
+    install_apt_packages
+    install_snaps
     # install_wine # if on home
     # install_ynab # if on home
     # install_chrome
