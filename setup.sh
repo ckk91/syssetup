@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # System setup script/playground
 #
-# TODO: flags?
+# TODO: flags?a cleanup
 
 
 set -euo pipefail
