@@ -11,6 +11,8 @@ IFS=$'\n\t'
 # ============================================
 # https://medium.com/better-programming/best-practices-for-bash-scripts-17229889774d
 # run with sudo
+# todo add pandoc && sudo apt-get install texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra
+# todo add python-pip3 if ubuntu and install ipython. (after pyenv setup!)
 function install_apt_packages() {
     # add-apt-repository -y ppa:kritalime/ppa
 
@@ -28,6 +30,7 @@ function install_apt_packages() {
         git
         htop
         keepassxc
+        locate
         # krita
         # nautilus-dropbox
         neovim-qt
@@ -125,6 +128,7 @@ function install_nvm () {
 function main() {
     # :
     #todo test if snap
+    # todo sudo usermod -a -G vboxusers $USER
     install_apt_packages
     install_snaps
     # install_wine # if on home
