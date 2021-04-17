@@ -45,6 +45,7 @@ function install_apt_packages() {
     )
     apt install -y "${APT_PACKS[@]}"
 }
+# todo docker-compose
 
 function install_snaps() {
     # snap install spotify
