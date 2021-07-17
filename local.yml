@@ -1,0 +1,17 @@
+- hosts: localhost
+  become: true
+  tasks:
+    - name: Install packages
+      apt: name={{item}}
+      with_items:
+        - htop
+        - curl
+        - build-essential
+        - git
+        - keepassxc
+        - locate
+        - neovim-qt
+    - name: Install snaps
+      community.general.snap:
+        name: code
+        classic: yes
