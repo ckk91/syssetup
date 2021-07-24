@@ -1,22 +1,24 @@
 # Enabling WSL2 on windows 
 # enable wsl2
 function enable-wsl {
-    
+    $ErrorActionPreference = "Stop"
     dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
     dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
 
     # make ready for rerun
-    # push-location HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce
-    # new-itemproperty . MyKey -propertytype String -value "Start-Process powershell -Wait -Verb runAs -ArgumentList 'c:\bootstrap_wsl.ps1 setup'"
-    # pop-location
+    push-location HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce
+    new-itemproperty . MyKey -propertytype String -value "Start-Process powershell -Wait -Verb runAs -ArgumentList ' c:\bootstrap_wsl.ps1 setup'"
+    pop-location
 
-    # Copy-Item .\bootstrap_wsl.ps1 -Destination C:\bootstrap_wsl.ps1
+    Copy-Item .\bootstrap_wsl.ps1 -Destination C:\bootstrap_wsl.ps1
+    # todo cleanup
 
     Restart-Computer
 }
 
 function initialize-ubuntu {
     $ProgressPreference = 'SilentlyContinue'
+    $ErrorActionPreference = "Stop"
     Invoke-WebRequest -Uri https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi -OutFile .\wsl_update.msi
     # omfg https://powershellexplained.com/2016-10-21-powershell-installing-msi-files/
     Start-Process msiexec.exe -Wait -ArgumentList ' /I .\wsl_update.msi /quiet'
