@@ -1,0 +1,5 @@
+https://stackoverflow.com/a/35812945
+bcdedit /set hypervisorlaunchtype off
+To enable:
+
+bcdedit /set hypervisorlaunchtype auto 
