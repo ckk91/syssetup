@@ -4,9 +4,6 @@
 # TODO: flags?a cleanup
 
 
-set -euo pipefail
-IFS=$'\n\t'
-
 # to pull: bash -c "$(wget $URL -O -)"
 # ============================================
 # https://medium.com/better-programming/best-practices-for-bash-scripts-17229889774d
@@ -15,10 +12,10 @@ IFS=$'\n\t'
 # todo add pandoc && sudo apt-get install texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra
 # todo add python-pip3 if ubuntu and install ipython. (after pyenv setup!)
 
-function install_apt_packages() {
-    # add-apt-repository -y ppa:kritalime/ppa
+# todo add stage check
 
-    apt update && apt upgrade
+function install_apt_packages() {
+    sudo apt update && sudo apt upgrade -y
 
     APT_PACKS=(
         # ag  # todo ripgrep
@@ -32,12 +29,15 @@ function install_apt_packages() {
         ranger  # todo evaluate tool
         tig  # todo evaluate tool
     )
-    apt install -y "${APT_PACKS[@]}"
+    sudo apt install -y "${APT_PACKS[@]}"
 }
 
 
 function create_git_ssh_key () {
-    ssh-keygen -t ed25519 -C "$GIT_EMAIL" -P "" -f $SSH_FILE -q
+    # todo make sure to not accidentally recreate
+    ssh-keygen -t ed25519 -C "$GIT_SSH_EMAIL" -P "$GIT_SSH_PASSPHRASE" -f $GIT_SSH_FILE -q
+    eval "$(ssh-agent -s)"
+    ssh-add $GIT_SSH_FILE
 }
 
 
@@ -47,10 +47,11 @@ function install_zsh {
         sudo apt-get install -y zsh
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
         # todo remind to change shell
-        chsh /usr/bin/zsh
+        chsh $USER /usr/bin/zsh
         exit 0
     fi
 }
+
 function install_python_venv {
     if [ ! -d $HOME/.pyenv ]; then
         echo "Setting up pyenv"
@@ -59,9 +60,9 @@ function install_python_venv {
         echo 'export PATH="/home/fia/.pyenv/bin:$PATH"' >> ~/.zshrc
         echo 'eval "$(pyenv init -)"' >> ~/.zshrc
         echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc
-        # . $HOME/.zshrc
     fi
 }
+
 function install_nvm () {
     if [ ! -d $HOME/.nvm ]; then
         echo "Setting up nvm and nodejs lvm latest"
@@ -71,17 +72,25 @@ function install_nvm () {
     fi
 }
 
+function setup_git() {
+    # todo check if exist
+    git config --global user.email "${GIT_SSH_EMAIL}"
+    git config --global user.name "${GIT_USER}"
+}
+
 function main() {
+    set -euo pipefail
+    IFS=$'\n\t'
+
     install_apt_packages
     install_snaps
     install_zsh
     install_python_venv
     install_nvm
-    # create_git_ssh_key  # todo
+    create_git_ssh_key
+    setup_git
 }
 
 if [ "$0" = "$BASH_SOURCE" ]; then
     main
 fi
-
-# todo cat vscode_extensions.list | grep -v '^#' | xargs -L1 code --install-extension
