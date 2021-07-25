@@ -22,22 +22,22 @@ function initialize-ubuntu {
     Invoke-WebRequest -Uri https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi -OutFile .\wsl_update.msi
     # omfg https://powershellexplained.com/2016-10-21-powershell-installing-msi-files/
     # Start-Process msiexec.exe -Wait -ArgumentList ' /I .\wsl_update.msi /quiet'
-    .\wsl_update.msi
+    Start-Process -wait .\wsl_update.msi
     Write-Host "Post kernel patch"
     Remove-Item '.\wsl_update.msi'
 
     Write-Host Setting WSL Default Version 2
     wsl --set-default-version 2
 
-    Write-Host Installing Ubuntu 20.04 LTS
-    Invoke-WebRequest -Uri https://aka.ms/wslubuntu2004 -OutFile Ubuntu.appx -UseBasicParsing
-    Add-AppxPackage .\Ubuntu.appx
-    Remove-Item '.\Ubuntu.appx'
+    # Write-Host Installing Ubuntu 20.04 LTS
+    # Invoke-WebRequest -Uri https://aka.ms/wslubuntu2004 -OutFile Ubuntu.appx -UseBasicParsing
+    # Add-AppxPackage .\Ubuntu.appx
+    # Remove-Item '.\Ubuntu.appx'
 
-    # Initial housekeeping
-    #https://github.com/kaisalmen/wsltooling/blob/world/installUbuntuLTS.ps1
-    Write-Host Initial Ubuntu update
-    wsl -u root -- apt update `&`& apt upgrade -y
+    # # Initial housekeeping
+    # #https://github.com/kaisalmen/wsltooling/blob/world/installUbuntuLTS.ps1
+    # Write-Host Initial Ubuntu update
+    # wsl -u root -- apt update `&`& apt upgrade -y
 
     $ProgressPreference = 'Continue'  # because ms engineers cant do concurrency apparently
     # https://stackoverflow.com/a/15166968
