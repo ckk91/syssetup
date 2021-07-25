@@ -21,7 +21,9 @@ function initialize-ubuntu {
     
     Invoke-WebRequest -Uri https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi -OutFile .\wsl_update.msi
     # omfg https://powershellexplained.com/2016-10-21-powershell-installing-msi-files/
-    Start-Process msiexec.exe -Wait -ArgumentList ' /I .\wsl_update.msi /quiet'
+    # Start-Process msiexec.exe -Wait -ArgumentList ' /I .\wsl_update.msi /quiet'
+    .\wsl_update.msi
+    Write-Host "Post kernel patch"
     Remove-Item '.\wsl_update.msi'
 
     Write-Host Setting WSL Default Version 2

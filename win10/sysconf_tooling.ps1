@@ -4,9 +4,9 @@
 $ChocoCachePath = "$env:USERPROFILE\AppData\Local\Temp\chocolatey"
 New-Item -Path $ChocoCachePath -ItemType Directory -Force
 
-Set-WindowsExplorerOptions -EnableShowHiddenFilesFoldersDrives -EnableShowProtectedOSFiles -EnableShowFileExtensions
+# Set-WindowsExplorerOptions -EnableShowHiddenFilesFoldersDrives -EnableShowProtectedOSFiles -EnableShowFileExtensions
 
-Disable-UAC
+# Disable-UAC
 
 cinst -y 7zip
 cinst -y audacity
@@ -47,8 +47,8 @@ Set-ExecutionPolicy -ExecutionPolicy Unrestricted
 \ProgramData\chocolatey\bin\Choco-Cleaner.ps1
 
 # === System Update ===
-Enable-MicrosoftUpdate
-Install-WindowsUpdate -acceptEula
+# Enable-MicrosoftUpdate
+# Install-WindowsUpdate -acceptEula
 
 #--- Restore Temporary Settings ---
-Enable-UAC
+# Enable-UAC
