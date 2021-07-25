@@ -47,8 +47,7 @@ function install_zsh {
         sudo apt-get install -y zsh
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
         # todo remind to change shell
-        chsh $USER /usr/bin/zsh
-        exit 0
+        chsh -s /usr/bin/zsh
     fi
 }
 
@@ -83,7 +82,6 @@ function main() {
     IFS=$'\n\t'
 
     install_apt_packages
-    install_snaps
     install_zsh
     install_python_venv
     install_nvm
