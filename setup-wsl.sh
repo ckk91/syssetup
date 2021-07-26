@@ -75,6 +75,7 @@ function setup_git() {
     # todo check if exist
     git config --global user.email "${GIT_SSH_EMAIL}"
     git config --global user.name "${GIT_USER}"
+    git config --global credential.helper cache --timeout=3600
 }
 
 function main() {
