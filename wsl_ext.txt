@@ -1,0 +1,16 @@
+Extensions installed on WSL: Ubuntu-20.04:
+alexcvzz.vscode-sqlite
+batisteo.vscode-django
+byCedric.vscode-expo
+eamodio.gitlens
+golang.go
+jebbs.plantuml
+JPTarquino.postgresql
+ms-azuretools.vscode-docker
+ms-python.python
+ms-python.vscode-pylance
+ms-toolsai.jupyter
+mtxr.sqltools
+octref.vetur
+ritwickdey.LiveServer
+yzhang.markdown-all-in-one
