@@ -88,6 +88,7 @@ function main() {
     create_git_ssh_key
     setup_git
 }
+#  find . -name 'vendor' -type d -prune -exec rm -rf '{}' +
 
 if [ "$0" = "$BASH_SOURCE" ]; then
     main
