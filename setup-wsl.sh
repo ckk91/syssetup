@@ -25,7 +25,8 @@ function install_apt_packages() {
         git
         htop
         locate
-        neovim-qt
+        neovim
+        zsh
         ranger  # todo evaluate tool
         tig  # todo evaluate tool
     )
@@ -40,12 +41,15 @@ function create_git_ssh_key () {
     ssh-add $GIT_SSH_FILE
 }
 
+function create_workspace() {
+    mkdir $HOME/00_dev
+}
 
 function install_zsh {
     if [ "${SHELL}" != "/usr/bin/zsh" ]; then
         echo "Setting up zsh"
-        sudo apt-get install -y zsh
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+        # sudo apt-get install -y zsh
+        # sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
         # todo remind to change shell
         chsh -s /usr/bin/zsh
     fi
