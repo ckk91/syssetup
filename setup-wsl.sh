@@ -25,6 +25,8 @@ function install_apt_packages() {
         git
         htop
         locate
+        tmux
+        screen
         neovim
         zsh
         ranger  # todo evaluate tool
