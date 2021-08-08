@@ -4,14 +4,45 @@
     - name: Install packages
       apt: name={{item}}
       with_items:
-        - htop
-        - curl
+        - # ag  # todo ripgrep
+        - aptitude
         - build-essential
+        - calibre         
+        - curl
+        - dos2unix
+        - flatpak
+        - gdb
         - git
+        - gnome-boxes
+        - gnome-tweaks
+        - htop
         - keepassxc
         - locate
+        - mc
+        - ncdu
         - neovim-qt
-    - name: Install snaps
+        - nnn
+        - pavucontrol
+        - ranger  # todo evaluate tool
+        - screen
+        - thunderbird
+        - tig 
+        - tmux
+        - tmux
+        - virtualbox
+        - zsh
+        # - python3-pip
+        # - steam-installer
+    - name: Install VS Code
       community.general.snap:
         name: code
         classic: yes
+    - name: Install spotify
+      community.general.snap:
+        name: spotify
+    - name: Setup Flatpak
+    - name: Install Vorta (Flatpak)
+    - name: Install Docker
+    - name: Setup NAS
+    - name: Setup Oh My Zsh!
+    - name: Install
